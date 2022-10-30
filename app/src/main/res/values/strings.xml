@@ -1,0 +1,164 @@
+<resources>
+    <string name="app_name">RentalManager</string>
+
+    <string-array name="categories_main_full_list">
+        <item>Admin &amp; Other</item>
+        <item>Legal &amp; Professional</item>
+        <item>Insurance</item>
+        <item>Management Fees</item>
+        <item>Repairs &amp; Maintenance</item>
+        <item>Taxes</item>
+        <item>Utilities</item>
+        <item>Mortgage &amp; Loans</item>
+        <item>Capital Expenses</item>
+        <item>Security Expenses</item>
+        <item>Transfers</item>
+        <item>Income (refund)</item>
+    </string-array>
+
+    <string-array name="admin_and_other_full_list">
+        <item>Advertising</item>
+        <item>Background &amp; Credit Checks</item>
+        <item>Travel</item>
+        <item>Mileage</item>
+        <item>Meals</item>
+        <item>Office Supplies &amp; Postage</item>
+        <item>Software Subscriptions</item>
+        <item>HOA Dues</item>
+        <item>Bank Fees</item>
+        <item>Education</item>
+        <item>Gifts</item>
+        <item>Licenses</item>
+        <item>Rent Concession</item>
+    </string-array>
+
+    <string-array name="legal_and_professional_full_list">
+        <item>Legal</item>
+        <item>Accounting</item>
+        <item>Court Fees</item>
+        <item>Eviction Fees</item>
+        <item>Inspections</item>
+        <item>Surveys</item>
+        <item>Appraisals</item>
+    </string-array>
+
+    <string-array name="insurance_full_list">
+        <item>Rental Dwelling</item>
+        <item>Rental Condo</item>
+        <item>Flood</item>
+        <item>Hurricane</item>
+        <item>Earthquake</item>
+        <item>Natural Disaster</item>
+        <item>Liability</item>
+        <item>Umbrella</item>
+    </string-array>
+
+    <string-array name="management_fees_full_list">
+        <item>Property Management</item>
+        <item>Service Calls</item>
+        <item>Leasing Commissions</item>
+        <item>Booking &amp; Platform Fees</item>
+        <item>Fund Management</item>
+    </string-array>
+
+    <string-array name="repairs_and_maint_full_list">
+        <item>Cleaning &amp; Janitorial</item>
+        <item>Painting</item>
+        <item>Electrical Repairs</item>
+        <item>Plumbing Repairs</item>
+        <item>HVAC Repairs</item>
+        <item>Appliance Repairs</item>
+        <item>Roof Repairs</item>
+        <item>Door &amp; Window Repairs</item>
+        <item>Other Repairs</item>
+        <item>Security Lock &amp; Keys</item>
+        <item>Pest</item>
+        <item>Gardening &amp; Landscaping</item>
+        <item>Pool &amp;b Spa</item>
+        <item>Snow Removal</item>
+        <item>R&amp;M Supplies</item>
+        <item>R&amp;M Permits &amp; Inspections</item>
+        <item>Labor</item>
+        <item>Linens, Soaps, &amp; Other Consumables</item>
+    </string-array>
+
+    <string-array name="taxes_full_list">
+        <item>Property Taxes</item>
+        <item>Special Assessments</item>
+        <item>City, State, &amp; Local Taxes</item>
+        <item>Short Term Occupancy Taxes</item>
+        <item>Federal Taxes</item>
+        <item>Taxes Licenses &amp; Registration</item>
+    </string-array>
+
+    <string-array name="utilities_full_list">
+        <item>Gas</item>
+        <item>Electric</item>
+        <item>Gas &amp; Electric</item>
+        <item>Garbage &amp; Recycling</item>
+        <item>Telephone, Cable &amp; Internet</item>
+        <item>Water &amp; Sewer</item>
+        <item>Heating Oil</item>
+        <item>Sewer</item>
+    </string-array>
+
+    <string-array name="mortgage_and_loans_full_list">
+        <item>Mortgage Payment</item>
+        <item>Mortgage Interest</item>
+        <item>Mortgage Principal</item>
+        <item>Proceeds &amp; Payoffs</item>
+        <item>Other Loan Payment</item>
+        <item>Other Interest</item>
+        <item>Other Principal</item>
+        <item>Private Mortgage Insurance(PMI)</item>
+    </string-array>
+
+    <string-array name="capital_expenses_full_list">
+        <item>New Roof</item>
+        <item>New Acquisitions</item>
+        <item>New Appliances</item>
+        <item>New HVAC</item>
+        <item>New Flooring &amp; Carpet</item>
+        <item>New Doors &amp; Windows</item>
+        <item>New Plumbing &amp; Electrical</item>
+        <item>New Furniture &amp; Equipment</item>
+        <item>Remodeling</item>
+        <item>Closing Costs</item>
+        <item>Loan Costs</item>
+    </string-array>
+
+    <string-array name="security_deposits_full_list">
+        <item>Security Deposit Interest</item>
+    </string-array>
+
+    <string-array name="transfers_full_list">
+        <item>Credit Card Payments</item>
+        <item>Owner Distributions</item>
+        <item>General Escrow Payments</item>
+        <item>Property Tax Escrows</item>
+        <item>Insurance Escrows</item>
+        <item>PMI Escrows</item>
+        <item>HOA Escrows</item>
+        <item>Down Payments</item>
+        <item>Sale Proceeds</item>
+        <item>Taxes Remit</item>
+    </string-array>
+
+    <string-array name="income_refund_list">
+        <item>Rents</item>
+        <item>Section 8 Rents</item>
+        <item>Short term Rents</item>
+        <item>Application Fees</item>
+        <item>Late Fees</item>
+        <item>Pet Fees</item>
+        <item>Laundry</item>
+        <item>Storage</item>
+        <item>Parking</item>
+        <item>Tenant Pass-Throughs</item>
+        <item>Misc Interest</item>
+        <item>Insurance Proceeds</item>
+        <item>Cleaning &amp; Other Upsells</item>
+    </string-array>
+
+
+</resources>

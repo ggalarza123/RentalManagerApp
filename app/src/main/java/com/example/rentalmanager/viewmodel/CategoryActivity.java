@@ -1,0 +1,81 @@
+package com.example.rentalmanager.viewmodel;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.example.rentalmanager.Adapter.CategoryAdapter;
+import com.example.rentalmanager.R;
+import com.example.rentalmanager.db.Categories;
+import com.example.rentalmanager.db.RecyclerViewInterface;
+
+import java.util.ArrayList;
+
+// added implements transactionDao for second recyclerview
+public class CategoryActivity extends AppCompatActivity implements RecyclerViewInterface {
+
+
+    ArrayList<Categories> categories = new ArrayList<>();
+
+//    int[] xmlFileNames = {R.array.admin_and_other_full_list, R.array.legal_and_professional_full_list, R.array.insurance_full_list, R.array.management_fees_full_list, R.array.repairs_and_maint_full_list, R.array.taxes_full_list, R.array.utilities_full_list, R.array.mortgage_and_loans_full_list, R.array.capital_expenses_full_list, R.array.security_deposits_full_list, R.array.transfers_full_list, R.array.income_refund_list};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.recycler_view_categories_layout);
+//          new code for second recycler view
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_category_view);
+        setUpCategories();
+
+        CategoryAdapter adapter = new CategoryAdapter(this, categories, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    private void setUpCategories() {
+        String[] mainCategoryNames = getResources().getStringArray(R.array.categories_main_full_list);
+
+        for (int i = 0; i < mainCategoryNames.length; i++) {
+            categories.add(new Categories(mainCategoryNames[i], R.drawable.ic_baseline_keyboard_arrow_right_24));
+        }
+    }
+
+    // the int position, in other words the position of the item clicked is defined in category adapter.
+    // WORKS BUT NEEDS ALOT OF WORK!!!!!!!!!!!
+    // SKIPS A PAGE CREATION LOL AND ONLY WORKS FOR ONE POSITION.
+    @Override
+    public void onItemClick(int position) {
+
+        Intent intent = new Intent(this, SubCategoryActivity.class);
+
+        intent.putExtra("NAME",categories.get(position).getCategory());
+
+        intent.putExtra("POSITION", Integer.toString(position));
+        startActivity(intent);
+//            String[] mainCategoryNames = getResources().getStringArray(xmlFileNames[position]);
+
+//            for (int i = 0; i < mainCategoryNames.length; i++) {
+//                subCategories.add(new Categories(mainCategoryNames[i], R.drawable.ic_baseline_keyboard_arrow_right_24));
+//
+//
+
+        // his code
+//        intent.putExtra("NAME", objects.get(position).getAminoAcidName());
+
+
+//        }
+
+//        recyclerView = findViewById(R.id.recycler_view_category_view);
+//        CategoryAdapter adapter = new CategoryAdapter(this, subCategories, this);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        startActivity(intent);
+
+    }
+
+}
+
