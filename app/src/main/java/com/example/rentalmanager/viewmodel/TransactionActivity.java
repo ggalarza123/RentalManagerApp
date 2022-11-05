@@ -4,17 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rentalmanager.R;
 import com.example.rentalmanager.db.AppDatabase;
+import com.example.rentalmanager.db.Property;
 import com.example.rentalmanager.db.Transactions;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionActivity extends AppCompatActivity {
 
@@ -36,6 +41,8 @@ public class TransactionActivity extends AppCompatActivity {
         // down below add_tran... specifices which layout this page is refering to
         setContentView(R.layout.add_transaction_input_layout);
 
+
+
         // back button object is an image so passed in image type, found by ID
         backBtn = (ImageView) findViewById(R.id.transaction_back_button);
         // set a set on click listener
@@ -50,7 +57,8 @@ public class TransactionActivity extends AppCompatActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                saveData();
+
             }
         });
 
@@ -59,29 +67,21 @@ public class TransactionActivity extends AppCompatActivity {
         enterNotes = findViewById(R.id.editNotes);
         enterDate = findViewById(R.id.editTextDate2);
 
-        doneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //method explanation down below
-                saveData();
-
-            }
-        });
-
         categoryButton = findViewById(R.id.categoryClickArrow);
         categoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
             }
         });
 
+        spinnerCreate();
     }
 
     //this code could go above in onCreate but created a seperate method instead for better code
     private void backToTransactions() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private void saveData(){
@@ -101,7 +101,7 @@ public class TransactionActivity extends AppCompatActivity {
             transaction.setTransactionTitle(paidTo);
             transaction.setTransactionDate(date);
 
-            AppDatabase.getDatabase(getApplicationContext()).getDao().insertTransaction(transaction);
+            AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().insertTransaction(transaction);
 
             enterPaidTo.setText("");
         enterAmount.setText("");
@@ -109,10 +109,26 @@ public class TransactionActivity extends AppCompatActivity {
         enterDate.setText("");
             Toast.makeText(this, "Data Successfully Saved", Toast.LENGTH_SHORT).show();
 
-
-
 //        }
 
 
     }
+    private void spinnerCreate() {
+        ArrayList<String> testing = new ArrayList<>();
+        testing.add("All Properties");
+        // code here to add properties to testing array before they get shown
+
+        AppDatabase db = AppDatabase.getDatabase(this);
+        List<Property> temp = db.getPropertyDao().getAllProperty();
+
+        for (Property list: temp) {
+            testing.add(list.address);
+        }
+
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, testing);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
 }

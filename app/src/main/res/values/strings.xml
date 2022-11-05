@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RentalManager</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="categories_main_full_list">
         <item>Admin &amp; Other</item>
         <item>Legal &amp; Professional</item>

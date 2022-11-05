@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.rentalmanager.Adapter.CategoryAdapter;
 import com.example.rentalmanager.R;
@@ -19,20 +22,30 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
 
     ArrayList<Categories> categories = new ArrayList<>();
-
+    ImageView backButton;
 //    int[] xmlFileNames = {R.array.admin_and_other_full_list, R.array.legal_and_professional_full_list, R.array.insurance_full_list, R.array.management_fees_full_list, R.array.repairs_and_maint_full_list, R.array.taxes_full_list, R.array.utilities_full_list, R.array.mortgage_and_loans_full_list, R.array.capital_expenses_full_list, R.array.security_deposits_full_list, R.array.transfers_full_list, R.array.income_refund_list};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view_categories_layout);
-//          new code for second recycler view
+        initialStart();
+    }
+    //          new code for second recycler view
+    private void initialStart() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_category_view);
         setUpCategories();
 
         CategoryAdapter adapter = new CategoryAdapter(this, categories, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        backButton = findViewById(R.id.transaction_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
@@ -45,8 +58,6 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     }
 
     // the int position, in other words the position of the item clicked is defined in category adapter.
-    // WORKS BUT NEEDS ALOT OF WORK!!!!!!!!!!!
-    // SKIPS A PAGE CREATION LOL AND ONLY WORKS FOR ONE POSITION.
     @Override
     public void onItemClick(int position) {
 

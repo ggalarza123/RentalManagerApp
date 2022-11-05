@@ -9,14 +9,15 @@ import androidx.room.RoomDatabase;
 //verision 1 since this is the first version
 //Transactions.class since that is the INSTANCEs that we will be creating
 // @Database key class
-@Database(entities = {Transactions.class, TransactionCategories.class}, version = 1)
+@Database(entities = {Transactions.class, Property.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     // this creates a single instance for our database
     private static AppDatabase INSTANCE;
 
-    public abstract TransactionDao getDao();
+    public abstract TransactionDao getTransactionDao();
 
+    public abstract PropertyDao getPropertyDao();
     //    this returns the instance of AppDatabase class
     // Context is the object parameter it needs to take
     // this initializes the context, if it is null, nothing, then we initialize it, otherwise we return it as it is
@@ -33,7 +34,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
         synchronized (AppDatabase.class) {
-        INSTANCE = Room.databaseBuilder(context, AppDatabase.class, "Database").allowMainThreadQueries().build();
+            //remove fallbackToDestructive if database is updated and do not want to destroy data, will also need changes in AppDatabase
+        INSTANCE = Room.databaseBuilder(context, AppDatabase.class, "Database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
             }
         }
         return INSTANCE;

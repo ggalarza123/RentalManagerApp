@@ -16,6 +16,9 @@ import com.example.rentalmanager.db.Transactions;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -23,8 +26,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     Context context;
     List<Transactions> list;
 
+
     public TransactionAdapter(Context context, List<Transactions> list) {
         this.context = context;
+        Collections.reverse(list);
         this.list = list;
     }
 
@@ -46,6 +51,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             //assiging value to each of our rows as they come back on the screen
         // based on the position of our recycler view
+
             holder.title.setText(list.get(position).getTransactionTitle());
             holder.amount.setText(String.valueOf((list.get(position).getTransactionAmount())));
             holder.date.setText(list.get(position).getTransactionDate());
@@ -67,6 +73,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         // new code for second textView
         TextView categorytitle;
         ImageView arrow;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

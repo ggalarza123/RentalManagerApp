@@ -204,37 +204,18 @@
 
             <LinearLayout
                 android:id="@+id/property_click_arrow"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="65dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="25dp"
-                    android:text="Property"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextDate2" />
 
-                <TextView
-                    android:id="@+id/textView_property"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="25dp"
-                    android:layout_weight="1"
-                    android:text="Choose Property" />
-
-                <ImageView
-                    android:id="@+id/propertyArrow"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-
-                    app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
-
-
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:textAlignment="viewStart"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_width="280dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <ImageView
