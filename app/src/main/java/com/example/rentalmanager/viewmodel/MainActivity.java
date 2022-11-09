@@ -107,21 +107,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-
     // this is the method that is called above in OnCreate, which this method then creates a new intent which is
     // a few lines of code that lead to the next page
     private void openActivity2() {
         Intent intent = new Intent(this, TransactionActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         //selecting the activity we wish to start which is taking us to a new java file I wrote.
         startActivity(intent);
+
     }
 
     @Override

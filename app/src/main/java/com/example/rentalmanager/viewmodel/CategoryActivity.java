@@ -14,6 +14,7 @@ import com.example.rentalmanager.Adapter.CategoryAdapter;
 import com.example.rentalmanager.R;
 import com.example.rentalmanager.db.Categories;
 import com.example.rentalmanager.db.RecyclerViewInterface;
+import com.example.rentalmanager.db.Transactions;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view_categories_layout);
+
+
         initialStart();
     }
     //          new code for second recycler view
@@ -66,26 +69,15 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         intent.putExtra("NAME",categories.get(position).getCategory());
 
         intent.putExtra("POSITION", Integer.toString(position));
+
+        Transactions editedTransaction = getIntent().getExtras().getParcelable("editedTransaction");
+        intent.putExtra("editedTransaction", editedTransaction);
+
+        boolean clicked = getIntent().getBooleanExtra("editing", false);
+        intent.putExtra("editing", clicked);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-//            String[] mainCategoryNames = getResources().getStringArray(xmlFileNames[position]);
-
-//            for (int i = 0; i < mainCategoryNames.length; i++) {
-//                subCategories.add(new Categories(mainCategoryNames[i], R.drawable.ic_baseline_keyboard_arrow_right_24));
-//
-//
-
-        // his code
-//        intent.putExtra("NAME", objects.get(position).getAminoAcidName());
-
-
-//        }
-
-//        recyclerView = findViewById(R.id.recycler_view_category_view);
-//        CategoryAdapter adapter = new CategoryAdapter(this, subCategories, this);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        startActivity(intent);
-
     }
 
 }

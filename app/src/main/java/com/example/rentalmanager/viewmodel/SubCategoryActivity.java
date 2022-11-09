@@ -15,6 +15,7 @@ import com.example.rentalmanager.Adapter.CategoryAdapter;
 import com.example.rentalmanager.R;
 import com.example.rentalmanager.db.Categories;
 import com.example.rentalmanager.db.RecyclerViewInterface;
+import com.example.rentalmanager.db.Transactions;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class SubCategoryActivity extends AppCompatActivity implements RecyclerVi
     ArrayList<Categories> subCategories = new ArrayList<>();
     int position;
     ImageView backArrow;
-
+    String[] subCategoryNames;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class SubCategoryActivity extends AppCompatActivity implements RecyclerVi
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
@@ -51,8 +53,8 @@ public class SubCategoryActivity extends AppCompatActivity implements RecyclerVi
     }
 
     private void setUpCategories(int position) {
-        String[] subCategoryNames = getResources().getStringArray(xmlFileNames[position]);
-        System.out.println(position);
+        subCategoryNames = getResources().getStringArray(xmlFileNames[position]);
+
         for (int i = 0; i < subCategoryNames.length; i++) {
             subCategories.add(new Categories(subCategoryNames[i]));
         }
@@ -60,9 +62,19 @@ public class SubCategoryActivity extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, TransactionActivity.class);
-        // code with what to pass onto(pre-fill) Transaction Activity
+        Intent intent = new Intent(getApplicationContext(), TransactionActivity.class);
+        Transactions.tempTransactionCategory = subCategories.get(position).getCategory();
+        intent.putExtra("category", Transactions.tempTransactionCategory);
 
+        Transactions editedTransaction = getIntent().getExtras().getParcelable("editedTransaction");
+        intent.putExtra("editedTransaction", editedTransaction);
+//        Transactions clickedItem = getIntent().getParcelableExtra("transaction");
+//        intent.putExtra("transaction", clickedItem);
+        boolean clicked = getIntent().getBooleanExtra("editing", false);
+        intent.putExtra("editing", clicked);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+
+
     }
 }

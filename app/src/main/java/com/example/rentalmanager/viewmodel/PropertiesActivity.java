@@ -30,6 +30,7 @@ public class PropertiesActivity extends AppCompatActivity {
     private ImageView backArrow;
     RecyclerView propertyRecyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

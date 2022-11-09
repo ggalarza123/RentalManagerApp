@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 //verision 1 since this is the first version
 //Transactions.class since that is the INSTANCEs that we will be creating
 // @Database key class
-@Database(entities = {Transactions.class, Property.class}, version = 3)
+@Database(entities = {Transactions.class, Property.class}, version = 6)
 public abstract class AppDatabase extends RoomDatabase {
 
     // this creates a single instance for our database
