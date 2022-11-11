@@ -70,6 +70,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
         intent.putExtra("POSITION", Integer.toString(position));
 
+
         Transactions editedTransaction = getIntent().getExtras().getParcelable("editedTransaction");
         intent.putExtra("editedTransaction", editedTransaction);
 

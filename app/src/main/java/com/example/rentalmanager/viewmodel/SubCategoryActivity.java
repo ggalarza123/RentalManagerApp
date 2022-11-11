@@ -68,6 +68,9 @@ public class SubCategoryActivity extends AppCompatActivity implements RecyclerVi
 
         Transactions editedTransaction = getIntent().getExtras().getParcelable("editedTransaction");
         intent.putExtra("editedTransaction", editedTransaction);
+
+//        Transactions selectedTransaction = getIntent().getExtras().getParcelable("transaction");
+//        intent.putExtra("transaction", selectedTransaction);
 //        Transactions clickedItem = getIntent().getParcelableExtra("transaction");
 //        intent.putExtra("transaction", clickedItem);
         boolean clicked = getIntent().getBooleanExtra("editing", false);

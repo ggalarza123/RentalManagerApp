@@ -37,7 +37,7 @@ public class TransactionActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     boolean editing;
     Button deleteButton, yesButton, noButton;
-    Transactions selectedTransaction;
+    Transactions selectedTransaction, savedTransaction;
 
     private ImageView backBtn;
     private TextView doneBtn, showCategory;
@@ -52,7 +52,7 @@ public class TransactionActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                backToTransactions();
+
                 editing = false;
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -79,56 +79,50 @@ public class TransactionActivity extends AppCompatActivity {
         editing = getIntent().getBooleanExtra("editing", false);
         selectedTransaction = getIntent().getParcelableExtra("transaction");
 
-        // seems to work!
+// skipped the first time since editing = false, and when adding second transaction editing was also false so skipped
+        // editing is true when clicked on transaction
         if (editing == true) {
+
             deleteButton.setVisibility(View.VISIBLE);
-        } else deleteButton.setVisibility(View.GONE);
-        // this is getting executed as the category was selected, everything below
-        // is getting correct variables
-// NEW NEW second add start IS NULL, HOWEVER variables are NOT NULL so executed BUG HERE!!!!, several NullPointers like propAddress and proper DAT
-        // NEW NEW 1st add trans is NOT null for savedTransaction
-//        try { // this is null on startup of clicked transaction goes here, also null when clicking add transaction initially but
-//            Transactions savedTransaction = getIntent().getParcelableExtra("editedTransaction");
-//            System.out.println("2. viewing clickedItem transaction, should be an object: " + selectedTransaction);
-//        // NEW NEW after click category on add transaction, code goes here and savedTransaction is NOT NULL so if is executed
-//            // 2. HOWEVER BIG OOPS HERE savedTransaction.tempPaidTo, savedTransaction.tempTransActionAmount ARE NOT NULL
-//            // 3. AND THEY DO GET EXECUTED
-//            // code on startup goes here after click of transaction, if part is null so nothing is executed
-//            // after selecting a category and coming back this is no longer null so the if statements are executed
-//            // this makes sence since temp sets up the savedTransaction object and is called when clicking category
-//            if (savedTransaction.tempPaidTo != null) {
-//                enterPaidTo.setText(savedTransaction.tempPaidTo);
-//            }
-//            if (savedTransaction.tempTransActionAmount != null) {
-//                enterAmount.setText(savedTransaction.tempTransActionAmount);
-//            }
-//            if (savedTransaction.tempNotes != null) {
-//                enterNotes.setText(savedTransaction.tempNotes);
-//            }
-//            if (savedTransaction.tempTransactionCategory != null) {
-//                showCategory.setText(savedTransaction.tempTransactionCategory);
-//            }
-//
-//            if (savedTransaction.transactionDate != null) {
-//                enterDate.setText(savedTransaction.transactionDate);
-//            }
-//            if (savedTransaction.propertyAddress != null) {
-//
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+            try { // null below, all null on click of transaction
+                savedTransaction = getIntent().getParcelableExtra("editedTransaction");
+
+                if (savedTransaction.tempPaidTo != null) {
+                    enterPaidTo.setText(savedTransaction.tempPaidTo);
+                }
+                if (savedTransaction.tempTransActionAmount != null) {
+                    enterAmount.setText(savedTransaction.tempTransActionAmount);
+                }
+                if (savedTransaction.tempNotes != null) {
+                    enterNotes.setText(savedTransaction.tempNotes);
+                }
+                if (savedTransaction.tempTransactionCategory != null) {
+                    showCategory.setText(savedTransaction.tempTransactionCategory);
+                }
+
+                if (savedTransaction.tempDate != null) {
+                    enterDate.setText(savedTransaction.tempDate);
+                }
+                if (savedTransaction.tempAddress != null) {
+                    String address = savedTransaction.tempAddress;
+                    List<Property> temp = AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty();
+                    int index = 0;
+                    for (Property list : temp) {
+                        if (list.address.equals(address)) {
+                            index = temp.indexOf(list);
+                        }
+                    }
+                    propertySpinner.setSelection(index + 1);
+                }
+
+            } catch (Exception e) {
+                System.out.println("savedTransaction empty");
+            }
 
 
-        if (editing == false) {
-            enterDate.setText(getTodaysDate());
-        }
-
-        if (editing == true) {
-
+// on clicked transaciton not null so gets filled here
             if (selectedTransaction != null) {
-                System.out.println("which one is called on creating new");
 
                 enterPaidTo.setText(selectedTransaction.transactionPaidTo);
                 enterAmount.setText(String.valueOf(selectedTransaction.transactionAmount));
@@ -139,7 +133,7 @@ public class TransactionActivity extends AppCompatActivity {
                 String address = selectedTransaction.propertyAddress;
                 List<Property> temp = AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty();
                 int index = 0;
-                for (Property list: temp) {
+                for (Property list : temp) {
                     if (list.address.equals(address)) {
                         index = temp.indexOf(list);
                     }
@@ -149,32 +143,29 @@ public class TransactionActivity extends AppCompatActivity {
             }
         }
 
-
-        // this code will will input temporary transaction information when adding a new transaction
-        // after saving and clicking done the data will be reset.
+        // editing true here on clicked transaction, nothing done here
+        // first add this all null since Transaction.tempPAid to was null etc. on adding cat and back some where not null based on input
+        // second add transaction editing false, Transactions. were NOT NULL, empty "" so filled with ""
+//        HERE! and SaveDATA! Transaction.tempPaidTo = "new", transaction.tpmTrasnaction amount = 199, thus these variables were set on new transaction
         if (editing == false) {
+            enterDate.setText(getTodaysDate());
+            deleteButton.setVisibility(View.GONE);
 
-            System.out.println("checking to see if it goes through here it must");
             if (Transactions.tempPaidTo != null) {
                 enterPaidTo.setText(Transactions.tempPaidTo);
-                Transactions.tempPaidTo = "";
             }
             if (Transactions.tempTransActionAmount != null) {
                 enterAmount.setText(Transactions.tempTransActionAmount);
-                Transactions.tempTransActionAmount = "";
             }
             if (Transactions.tempNotes != null) {
                 enterNotes.setText(Transactions.tempNotes);
-                Transactions.tempNotes = "";
             }
             if (Transactions.tempTransactionCategory != null) {
                 showCategory.setText(Transactions.tempTransactionCategory);
-                Transactions.tempTransactionCategory = "Choose Category";
             }
             // new
             if (Transactions.tempDate != null) {
                 enterDate.setText(Transactions.tempDate);
-                Transactions.tempDate = getTodaysDate();
             } // new
             if (Transactions.tempAddress != null) {
                 String address = Transactions.tempAddress;
@@ -186,8 +177,8 @@ public class TransactionActivity extends AppCompatActivity {
                     }
                 }
                 propertySpinner.setSelection(index + 1);
-                Transactions.tempAddress = null;
             }
+            clearTemps();
         }
 
         datePicker();
@@ -204,6 +195,7 @@ public class TransactionActivity extends AppCompatActivity {
 
                 Intent intentTempData = new Intent(getApplicationContext(), CategoryActivity.class);
                 boolean clicked = getIntent().getBooleanExtra("editing", false);
+                savedTransaction = selectedTransaction;
                 tempData(intentTempData);
                 intentTempData.putExtra("editing", clicked);
                 startActivity(intentTempData);
@@ -290,35 +282,24 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     private void backToTransactions() {
-
         editing = false;
-
         finish();
-
-
     }
 
     private void tempData(Intent intent) {
         // when clicked on adding a transaction and then choosing category this was callled, all data stored correctly in editedTransaction
-        Transactions editedTransaction = new Transactions();
-        editedTransaction.tempPaidTo = enterPaidTo.getText().toString().trim();
-        editedTransaction.tempTransActionAmount = enterAmount.getText().toString().trim();
-        editedTransaction.tempNotes = enterNotes.getText().toString().trim();
-        editedTransaction.tempAddress = propertySpinner.getSelectedItem().toString().trim();
-        editedTransaction.tempDate = enterDate.getText().toString().trim();
-        editedTransaction.tempTransactionCategory = showCategory.getText().toString().trim();
-        intent.putExtra("editedTransaction", editedTransaction);
+        // also when editing transaciton
+//        Transactions editedTransaction = new Transactions();
+        savedTransaction.tempPaidTo = enterPaidTo.getText().toString().trim();
+        savedTransaction.tempTransActionAmount = enterAmount.getText().toString().trim();
+        savedTransaction.tempNotes = enterNotes.getText().toString().trim();
+        savedTransaction.tempAddress = propertySpinner.getSelectedItem().toString().trim();
+        savedTransaction.tempDate = enterDate.getText().toString().trim();
+        savedTransaction.tempTransactionCategory = showCategory.getText().toString().trim();
+        intent.putExtra("editedTransaction", savedTransaction);
+
 
     }
-// not yet used
-//    public void clearTempData() {
-//        Transactions.tempPaidTo = "";
-//        Transactions.tempNotes = "";
-//        Transactions.tempAddress = "";
-//        Transactions.tempTransActionAmount = "";
-//        Transactions.tempDate = "";
-//        Transactions.tempTransactionCategory = "";
-//    }
 
     private void saveData() {
 
@@ -330,10 +311,10 @@ public class TransactionActivity extends AppCompatActivity {
         String category = showCategory.getText().toString().trim();
         String property = propertySpinner.getSelectedItem().toString().trim();
 
+        // this is called on save prior to bug, editing is false,
         if (editing == false) {
-            System.out.println("1. is this called");
-            Transactions transaction = new Transactions();
 
+            Transactions transaction = new Transactions();
             transaction.setTransactionAmount(Double.parseDouble(amount));
             transaction.setTransactionNotes(notes);
             transaction.setTransactionPaidTo(paidTo);
@@ -347,28 +328,48 @@ public class TransactionActivity extends AppCompatActivity {
             onRestart();
         }
 
-
+//HERE 12:16pm // this is not called prior to bug, editing here is false
         if (editing == true) {
-            try {
+
+            if (selectedTransaction != null) {
                 selectedTransaction = getIntent().getParcelableExtra("transaction");
-            } catch (Exception e) {
-                selectedTransaction = new Transactions();
-                e.printStackTrace();
+                selectedTransaction.setTransactionNotes(notes);
+                selectedTransaction.setTransactionPaidTo(paidTo);
+                selectedTransaction.setTransactionDate(date);
+                selectedTransaction.setTransactionCategory(category);
+                selectedTransaction.setProperty(property);
+                selectedTransaction.setTransactionAmount(Double.parseDouble(amount));
+
+                AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().updateTransaction(selectedTransaction);
+                Toast.makeText(this, "Data Successfully Updated", Toast.LENGTH_SHORT).show();
             }
 
-            selectedTransaction.setTransactionNotes(notes);
-            selectedTransaction.setTransactionPaidTo(paidTo);
-            selectedTransaction.setTransactionDate(date);
-            selectedTransaction.setTransactionCategory(category);
-            selectedTransaction.setProperty(property);
-            selectedTransaction.setTransactionAmount(Double.parseDouble(amount));
 
-            AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().updateTransaction(selectedTransaction);
-            Toast.makeText(this, "Data Successfully Updated", Toast.LENGTH_SHORT).show();
+            if (savedTransaction != null) {
+                savedTransaction.setTransactionNotes(notes);
+                savedTransaction.setTransactionPaidTo(paidTo);
+                savedTransaction.setTransactionDate(date);
+                savedTransaction.setTransactionCategory(category);
+                savedTransaction.setProperty(property);
+                savedTransaction.setTransactionAmount(Double.parseDouble(amount));
+                AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().updateTransaction(savedTransaction);
+                Toast.makeText(this, "Data Successfully Updated", Toast.LENGTH_SHORT).show();
+
+                clearTemps();
+
+            }
 
         }
 
+    }
 
+    private void clearTemps() {
+        Transactions.tempPaidTo = "";
+        Transactions.tempTransactionCategory = "Choose Category";
+        Transactions.tempAddress = "";
+        Transactions.tempDate = getTodaysDate();
+        Transactions.tempNotes = "";
+        Transactions.tempTransActionAmount = "";
     }
 
     private void showDialog() {
@@ -401,24 +402,6 @@ public class TransactionActivity extends AppCompatActivity {
 
     }
 
-//    private void resetFields() {
-//        if (editing == false) {
-//
-//
-//            enterPaidTo.setText("");
-//            enterAmount.setText("");
-//            enterNotes.setText("");
-//            enterDate.setText(getTodaysDate());
-//            showCategory.setText("Choose Category");
-//            propertySpinner.setSelection(0);
-//
-//            Transactions.tempPaidTo = "";
-//            Transactions.tempTransActionAmount = "";
-//            Transactions.tempNotes = "";
-//            Transactions.tempTransactionCategory = "Choose Category";
-//        }
-//
-//    }
 
     @Override
     protected void onRestart() {

@@ -98,7 +98,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void setUpNewActivity() {
         Intent intent = new Intent(this.context, TransactionActivity.class);
         Transactions clickedItem = list.get(itemSelected);
-        System.out.println("1. viewing clickedItem transaction, should be an object: " + clickedItem);
+
         intent.putExtra("transaction", clickedItem);
         intent.putExtra("editing", true);
         context.startActivity(intent);
