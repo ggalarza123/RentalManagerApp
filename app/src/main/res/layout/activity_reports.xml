@@ -30,7 +30,7 @@
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#1F32EB"
+            android:background="@drawable/background_color"
             android:minHeight="?attr/actionBarSize"
             android:paddingStart="4dp"
             android:theme="?attr/actionBarTheme"

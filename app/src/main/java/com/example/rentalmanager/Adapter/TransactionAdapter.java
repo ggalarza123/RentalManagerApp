@@ -39,8 +39,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.activity_main_recyclerview, parent, false);
-
-
         return new TransactionAdapter.ViewHolder(view);
 
     }
@@ -55,7 +53,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.category.setText(list.get(position).getTransactionCategory());
         holder.propertyAddress.setText(list.get(position).getProperty());
         // for image holder.imageView.setImageResource(list.get(position).getImage());
-
         holder.itemView.setSelected(itemSelected == position);
 
     }
@@ -88,7 +85,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 return;
             }
             else {
-
                 notifyItemChanged(itemSelected);
                 itemSelected = getAdapterPosition();
                 notifyItemChanged(itemSelected);
@@ -102,7 +98,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void setUpNewActivity() {
         Intent intent = new Intent(this.context, TransactionActivity.class);
         Transactions clickedItem = list.get(itemSelected);
-
+        System.out.println("1. viewing clickedItem transaction, should be an object: " + clickedItem);
         intent.putExtra("transaction", clickedItem);
         intent.putExtra("editing", true);
         context.startActivity(intent);

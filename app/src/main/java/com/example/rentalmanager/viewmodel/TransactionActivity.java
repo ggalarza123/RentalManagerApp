@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentalmanager.Adapter.PropertyAdapter;
 import com.example.rentalmanager.R;
 import com.example.rentalmanager.db.AppDatabase;
 import com.example.rentalmanager.db.Property;
@@ -26,17 +30,16 @@ import java.util.List;
 
 public class TransactionActivity extends AppCompatActivity {
 
-    // these objects will be for the user input areas, and will then be passed on to a new object
+
     TextInputEditText enterPaidTo, enterAmount, enterNotes, enterDate;
     Spinner propertySpinner;
     View categoryButton;
     DatePickerDialog datePickerDialog;
     boolean editing;
+    Button deleteButton, yesButton, noButton;
     Transactions selectedTransaction;
-    // need to create an instance of what I will set with clicklistener to go back
+
     private ImageView backBtn;
-    // need to create another instance of what I will set with clicklistner to pass on all
-    //the input to the DB
     private TextView doneBtn, showCategory;
 
     @Override
@@ -70,47 +73,52 @@ public class TransactionActivity extends AppCompatActivity {
         enterNotes = findViewById(R.id.editNotes);
         enterDate = findViewById(R.id.editTextDate2);
         showCategory = findViewById(R.id.textView3);
+        deleteButton = findViewById(R.id.delete_button);
 
-
+        spinnerCreate();
         editing = getIntent().getBooleanExtra("editing", false);
         selectedTransaction = getIntent().getParcelableExtra("transaction");
 
+        // seems to work!
+        if (editing == true) {
+            deleteButton.setVisibility(View.VISIBLE);
+        } else deleteButton.setVisibility(View.GONE);
         // this is getting executed as the category was selected, everything below
         // is getting correct variables
 // NEW NEW second add start IS NULL, HOWEVER variables are NOT NULL so executed BUG HERE!!!!, several NullPointers like propAddress and proper DAT
         // NEW NEW 1st add trans is NOT null for savedTransaction
-        try { // this is null on startup of clicked transaction goes here, also null when clicking add transaction initially but
-            Transactions savedTransaction = getIntent().getParcelableExtra("editedTransaction");
-        // NEW NEW after click category on add transaction, code goes here and savedTransaction is NOT NULL so if is executed
-            // 2. HOWEVER BIG OOPS HERE savedTransaction.tempPaidTo, savedTransaction.tempTransActionAmount ARE NOT NULL
-            // 3. AND THEY DO GET EXECUTED
-            // code on startup goes here after click of transaction, if part is null so nothing is executed
-            // after selecting a category and coming back this is no longer null so the if statements are executed
-            // this makes sence since temp sets up the savedTransaction object and is called when clicking category
-            if (savedTransaction.tempPaidTo != null) {
-                enterPaidTo.setText(savedTransaction.tempPaidTo);
-            }
-            if (savedTransaction.tempTransActionAmount != null) {
-                enterAmount.setText(savedTransaction.tempTransActionAmount);
-            }
-            if (savedTransaction.tempNotes != null) {
-                enterNotes.setText(savedTransaction.tempNotes);
-            }
-            if (savedTransaction.tempTransactionCategory != null) {
-                showCategory.setText(savedTransaction.tempTransactionCategory);
-            }
-
-            if (savedTransaction.transactionDate != null) {
-                enterDate.setText(savedTransaction.transactionDate);
-            }
-            if (savedTransaction.propertyAddress != null) {
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+//        try { // this is null on startup of clicked transaction goes here, also null when clicking add transaction initially but
+//            Transactions savedTransaction = getIntent().getParcelableExtra("editedTransaction");
+//            System.out.println("2. viewing clickedItem transaction, should be an object: " + selectedTransaction);
+//        // NEW NEW after click category on add transaction, code goes here and savedTransaction is NOT NULL so if is executed
+//            // 2. HOWEVER BIG OOPS HERE savedTransaction.tempPaidTo, savedTransaction.tempTransActionAmount ARE NOT NULL
+//            // 3. AND THEY DO GET EXECUTED
+//            // code on startup goes here after click of transaction, if part is null so nothing is executed
+//            // after selecting a category and coming back this is no longer null so the if statements are executed
+//            // this makes sence since temp sets up the savedTransaction object and is called when clicking category
+//            if (savedTransaction.tempPaidTo != null) {
+//                enterPaidTo.setText(savedTransaction.tempPaidTo);
+//            }
+//            if (savedTransaction.tempTransActionAmount != null) {
+//                enterAmount.setText(savedTransaction.tempTransActionAmount);
+//            }
+//            if (savedTransaction.tempNotes != null) {
+//                enterNotes.setText(savedTransaction.tempNotes);
+//            }
+//            if (savedTransaction.tempTransactionCategory != null) {
+//                showCategory.setText(savedTransaction.tempTransactionCategory);
+//            }
+//
+//            if (savedTransaction.transactionDate != null) {
+//                enterDate.setText(savedTransaction.transactionDate);
+//            }
+//            if (savedTransaction.propertyAddress != null) {
+//
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
         if (editing == false) {
@@ -120,15 +128,23 @@ public class TransactionActivity extends AppCompatActivity {
         if (editing == true) {
 
             if (selectedTransaction != null) {
-
-
+                System.out.println("which one is called on creating new");
 
                 enterPaidTo.setText(selectedTransaction.transactionPaidTo);
                 enterAmount.setText(String.valueOf(selectedTransaction.transactionAmount));
                 enterNotes.setText(selectedTransaction.transactionNotes);
                 showCategory.setText(selectedTransaction.transactionCategory);
                 enterDate.setText(selectedTransaction.transactionDate);
-                // pending property spinner set
+                // CODE TO ADD SPINNER VIEWED IS BEING DONE HERE
+                String address = selectedTransaction.propertyAddress;
+                List<Property> temp = AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty();
+                int index = 0;
+                for (Property list: temp) {
+                    if (list.address.equals(address)) {
+                        index = temp.indexOf(list);
+                    }
+                }
+                propertySpinner.setSelection(index + 1);
 
             }
         }
@@ -155,6 +171,23 @@ public class TransactionActivity extends AppCompatActivity {
                 showCategory.setText(Transactions.tempTransactionCategory);
                 Transactions.tempTransactionCategory = "Choose Category";
             }
+            // new
+            if (Transactions.tempDate != null) {
+                enterDate.setText(Transactions.tempDate);
+                Transactions.tempDate = getTodaysDate();
+            } // new
+            if (Transactions.tempAddress != null) {
+                String address = Transactions.tempAddress;
+                List<Property> temp = AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty();
+                int index = 0;
+                for (Property list : temp) {
+                    if (list.address.equals(address)) {
+                        index = temp.indexOf(list);
+                    }
+                }
+                propertySpinner.setSelection(index + 1);
+                Transactions.tempAddress = null;
+            }
         }
 
         datePicker();
@@ -168,24 +201,23 @@ public class TransactionActivity extends AppCompatActivity {
         categoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // tempData is casing the vew messing up after clicking on a Category
-
-                //deleting temp data puts the category, but any other changes do not update once the page comes back, additionally
-                // clicking on an existing transaction populates with the same category
 
                 Intent intentTempData = new Intent(getApplicationContext(), CategoryActivity.class);
                 boolean clicked = getIntent().getBooleanExtra("editing", false);
                 tempData(intentTempData);
                 intentTempData.putExtra("editing", clicked);
-//                Transactions clickedItem = getIntent().getParcelableExtra("transaction");
-//                intentTempData.putExtra("clickedItem", clickedItem);
                 startActivity(intentTempData);
 
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
 
-        spinnerCreate();
 
     }
 
@@ -275,7 +307,6 @@ public class TransactionActivity extends AppCompatActivity {
         editedTransaction.tempAddress = propertySpinner.getSelectedItem().toString().trim();
         editedTransaction.tempDate = enterDate.getText().toString().trim();
         editedTransaction.tempTransactionCategory = showCategory.getText().toString().trim();
-
         intent.putExtra("editedTransaction", editedTransaction);
 
     }
@@ -298,8 +329,7 @@ public class TransactionActivity extends AppCompatActivity {
         String date = enterDate.getText().toString().trim();
         String category = showCategory.getText().toString().trim();
         String property = propertySpinner.getSelectedItem().toString().trim();
-        int position = propertySpinner.getSelectedItemPosition();
-        System.out.println("1. is this called editing pre verision: "+ editing);
+
         if (editing == false) {
             System.out.println("1. is this called");
             Transactions transaction = new Transactions();
@@ -311,15 +341,11 @@ public class TransactionActivity extends AppCompatActivity {
             transaction.setTransactionCategory(category);
             transaction.setProperty(property);
 
+            PropertyAdapter adapter1 = new PropertyAdapter(this, AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty());
             AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().insertTransaction(transaction);
-
-//            resetFields();
-// deleting fields causes an issue
             Toast.makeText(this, "Data Successfully Saved", Toast.LENGTH_SHORT).show();
             onRestart();
         }
-
-
 
 
         if (editing == true) {
@@ -329,7 +355,6 @@ public class TransactionActivity extends AppCompatActivity {
                 selectedTransaction = new Transactions();
                 e.printStackTrace();
             }
-
 
             selectedTransaction.setTransactionNotes(notes);
             selectedTransaction.setTransactionPaidTo(paidTo);
@@ -346,6 +371,35 @@ public class TransactionActivity extends AppCompatActivity {
 
     }
 
+    private void showDialog() {
+        Dialog dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.dialog_delete_transaction);
+
+        yesButton = dialog.findViewById(R.id.button_yes);
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("3. viewing clickedItem transaction, should be an object: " + selectedTransaction);
+                Transactions savedTransaction = getIntent().getParcelableExtra("transaction");
+                AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().deleteTransaction(savedTransaction);
+                Toast.makeText(getApplicationContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.show();
+
+        noButton = dialog.findViewById(R.id.button_no);
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+    }
 
 //    private void resetFields() {
 //        if (editing == false) {
@@ -368,27 +422,23 @@ public class TransactionActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        // does not seem to be called anymore
-        // set fields to blank here
-
-        System.out.println("On restaert is called");
         super.onRestart();
 
     }
 
     private void spinnerCreate() {
-        ArrayList<String> testing = new ArrayList<>();
-        testing.add("All Properties");
+        ArrayList<String> spinnerList = new ArrayList<>();
+        spinnerList.add("All Properties");
 
         AppDatabase db = AppDatabase.getDatabase(this);
         List<Property> temp = db.getPropertyDao().getAllProperty();
 
         for (Property list : temp) {
-            testing.add(list.address);
+            spinnerList.add(list.address);
         }
 
         Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, testing);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }

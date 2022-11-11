@@ -11,7 +11,7 @@
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#FF1F32EB"
+        android:background="@drawable/background_color"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,12 +57,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/delete_button"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:backgroundTint="#C62828"
+        android:backgroundTint="#BD0E0E"
         android:text="DELETE"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="@+id/toolbar3"
         app:layout_constraintStart_toStartOf="parent"
@@ -242,7 +242,7 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="250dp"
                 android:paddingBottom="100dp"
                 app:srcCompat="@drawable/ic_cloud_upload" />
 

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     private void initialStart() {
         setMenu();
         //finds the ***floatingactionbutton we are interested in, has to be floating action button***
@@ -70,10 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transactionListView.setAdapter(adapter);
         transactionListView.setLayoutManager(new LinearLayoutManager(this));
     }
-    // this was missing details originally, above has it all!
-//    private void getData() {
-//        transactionListView.setAdapter(new TransactionAdapter(getApplicationContext(), AppDatabase.getDatabase(getApplicationContext()).getDao().getAllTransactions()));
-//    }
 
 
     private void setMenu() {

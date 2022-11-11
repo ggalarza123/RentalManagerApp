@@ -98,19 +98,19 @@ public class PropertiesActivity extends AppCompatActivity {
     }
 
     private void spinnerCreate() {
-        ArrayList<String> testing = new ArrayList<>();
-        testing.add("All Properties");
+        ArrayList<String> propertiesArray = new ArrayList<>();
+        propertiesArray.add("All Properties");
         // code here to add properties to testing array before they get shown
 
         AppDatabase db = AppDatabase.getDatabase(this);
         List<Property> temp = db.getPropertyDao().getAllProperty();
 
         for (Property list: temp) {
-            testing.add(list.address);
+            propertiesArray.add(list.address);
         }
 
         Spinner spinner = findViewById(R.id.spinner2_properties);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, testing);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, propertiesArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }

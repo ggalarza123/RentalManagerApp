@@ -2,14 +2,14 @@
     <!-- Base application theme. -->
     <style name="Theme.RentalManager" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#FF1F32EB</item>
-        <item name="colorPrimaryVariant">#4D1F32EB</item>
+        <item name="colorPrimary">@color/main_theme_color</item>
+        <item name="colorPrimaryVariant">@color/main_theme_color</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_lighter_blue</item>
-        <item name="colorSecondaryVariant">@color/secondary_lighter_blue</item>
+        <item name="colorSecondary">@color/main_theme_color</item>
+        <item name="colorSecondaryVariant">@color/main_theme_color</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
