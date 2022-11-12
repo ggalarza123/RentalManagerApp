@@ -325,7 +325,10 @@ public class TransactionActivity extends AppCompatActivity {
             PropertyAdapter adapter1 = new PropertyAdapter(this, AppDatabase.getDatabase(getApplicationContext()).getPropertyDao().getAllProperty());
             AppDatabase.getDatabase(getApplicationContext()).getTransactionDao().insertTransaction(transaction);
             Toast.makeText(this, "Data Successfully Saved", Toast.LENGTH_SHORT).show();
-            onRestart();
+//            onRestart();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
 //HERE 12:16pm // this is not called prior to bug, editing here is false
