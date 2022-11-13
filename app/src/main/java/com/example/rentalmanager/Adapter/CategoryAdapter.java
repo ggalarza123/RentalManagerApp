@@ -20,72 +20,65 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
     private final RecyclerViewInterface recyclerViewInterface;
-        // new code for second textView
-        Context context2;
-        ArrayList<Categories> list2;
+
+    Context context2;
+    ArrayList<Categories> list2;
 
 
-        // new code for second textView
-    public CategoryAdapter(Context context, ArrayList<Categories> list2,RecyclerViewInterface recyclerViewInterface){
+    public CategoryAdapter(Context context, ArrayList<Categories> list2, RecyclerViewInterface recyclerViewInterface) {
         this.context2 = context;
         this.list2 = list2;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
-        @NonNull
-        @Override
-        public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @NonNull
+    @Override
+    public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            // new code for second textView
         LayoutInflater inflater2 = LayoutInflater.from(context2);
 
-        // HERE!!!!!!!!!!!!!!!!!----------------
+
         View view = inflater2.inflate(R.layout.recycler_view_row_catgories, parent, false);
 
         return new CategoryAdapter.ViewHolder(view, recyclerViewInterface);
-        }
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-
-            // new code for second textView
-            // HERE!!!!!!!!!!!!!!!!!----------------
+    @Override
+    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         holder.categoryTitle.setText(list2.get(position).getCategory());
         holder.arrow.setImageResource(list2.get(position).getImage());
 
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            // new code for second textView
+    @Override
+    public int getItemCount() {
         return list2.size();
-        }
+    }
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-            // new code for second textView
-            TextView categoryTitle;
-            ImageView arrow;
-            public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
-                super(itemView);
+        TextView categoryTitle;
+        ImageView arrow;
+
+        public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+            super(itemView);
 
 
-                // new code for second textView
-                arrow = itemView.findViewById(R.id.imageView_arrow);
-                categoryTitle = itemView.findViewById(R.id.textView_category);
+            arrow = itemView.findViewById(R.id.imageView_arrow);
+            categoryTitle = itemView.findViewById(R.id.textView_category);
 
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(recyclerViewInterface != null) {
-                            int pos = getAdapterPosition();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
 
-                            if (pos != RecyclerView.NO_POSITION) {
-                                recyclerViewInterface.onItemClick(pos);
-                            }
+                        if (pos != RecyclerView.NO_POSITION) {
+                            recyclerViewInterface.onItemClick(pos);
                         }
                     }
-                });
-            }
+                }
+            });
         }
+    }
 }

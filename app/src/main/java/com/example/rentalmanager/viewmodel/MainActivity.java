@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.rentalmanager.Adapter.TransactionAdapter;
 import com.example.rentalmanager.R;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    ImageView searchbar, filterView;
     // creating a button that will lead a new activity that adds a new transaction
     private FloatingActionButton addNewTransaction;
 
@@ -36,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialStart();
-
 
     }
 
@@ -56,6 +58,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         transactionListView = findViewById(R.id.recyclerView_new_transaction);
         getData();
+        searchbar = findViewById(R.id.imageView_search);
+        searchbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Search feature not yet implemented.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        filterView = findViewById(R.id.imageView);
+        filterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Filter feature not yet implemented.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //reloads the page so that any new transactions recently added will be visible

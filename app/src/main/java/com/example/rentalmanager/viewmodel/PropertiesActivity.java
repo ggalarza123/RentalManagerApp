@@ -39,6 +39,14 @@ public class PropertiesActivity extends AppCompatActivity {
     }
 
     private void initialStart() {
+        backArrow = findViewById(R.id.imageView9);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
         btnShowDialog = findViewById(R.id.button_add_property);
         propertyRecyclerView = findViewById(R.id.recycler_view_add_property);
         getData();
@@ -78,8 +86,8 @@ public class PropertiesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
-
-//                dialog.dismiss(); // this to close dialog
+                getData();
+                dialog.dismiss(); // this to close dialog
             }
         });
         dialog.show();

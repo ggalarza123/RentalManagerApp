@@ -31,10 +31,9 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view_categories_layout);
 
-
         initialStart();
     }
-    //          new code for second recycler view
+
     private void initialStart() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view_category_view);
         setUpCategories();

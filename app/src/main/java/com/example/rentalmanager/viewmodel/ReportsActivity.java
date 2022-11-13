@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.rentalmanager.R;
 import com.example.rentalmanager.db.AppDatabase;
@@ -22,6 +24,7 @@ import java.util.List;
 public class ReportsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ImageView backArrow;
+    Button downloadButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,13 @@ public class ReportsActivity extends AppCompatActivity implements AdapterView.On
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
+            }
+        });
+        downloadButton = findViewById(R.id.button);
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Download not yet implemented.", Toast.LENGTH_SHORT).show();
             }
         });
     }
