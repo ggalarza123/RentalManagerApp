@@ -22,12 +22,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private final RecyclerViewInterface recyclerViewInterface;
 
     Context context2;
-    ArrayList<Categories> list2;
+    ArrayList<Categories> listOfCategories;
 
 
-    public CategoryAdapter(Context context, ArrayList<Categories> list2, RecyclerViewInterface recyclerViewInterface) {
+    public CategoryAdapter(Context context, ArrayList<Categories> listOfCategories, RecyclerViewInterface recyclerViewInterface) {
         this.context2 = context;
-        this.list2 = list2;
+        this.listOfCategories = listOfCategories;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
@@ -45,14 +45,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
-        holder.categoryTitle.setText(list2.get(position).getCategory());
-        holder.arrow.setImageResource(list2.get(position).getImage());
+        holder.categoryTitle.setText(listOfCategories.get(position).getCategory());
+        holder.arrow.setImageResource(listOfCategories.get(position).getImage());
 
     }
 
     @Override
     public int getItemCount() {
-        return list2.size();
+        return listOfCategories.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

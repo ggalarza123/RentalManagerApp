@@ -17,11 +17,11 @@ import java.util.List;
 
 public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHolder> {
     Context context;
-    List<Property> list;
+    List<Property> listOfProperties;
 
-    public PropertyAdapter(Context context, List<Property> list) {
+    public PropertyAdapter(Context context, List<Property> listOfProperties) {
         this.context = context;
-        this.list = list;
+        this.listOfProperties = listOfProperties;
     }
 
     @NonNull
@@ -34,12 +34,12 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull PropertyAdapter.ViewHolder holder, int position) {
-        holder.propertyAddress.setText(list.get(position).getAddress());
+        holder.propertyAddress.setText(listOfProperties.get(position).getAddress());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return listOfProperties.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

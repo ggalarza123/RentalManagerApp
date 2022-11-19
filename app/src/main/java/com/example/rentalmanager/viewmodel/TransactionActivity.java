@@ -281,10 +281,6 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
 
-    private void backToTransactions() {
-        editing = false;
-        finish();
-    }
 
     private void tempData(Intent intent) {
         // when clicked on adding a transaction and then choosing category this was callled, all data stored correctly in editedTransaction

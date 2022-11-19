@@ -20,13 +20,13 @@ import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
     Context context;
-    List<Transactions> list;
+    List<Transactions> listOfTransactions;
     static int itemSelected = RecyclerView.NO_POSITION;
 
-    public TransactionAdapter(Context context, List<Transactions> list) {
+    public TransactionAdapter(Context context, List<Transactions> listOfTransactions) {
         this.context = context;
-        Collections.reverse(list);
-        this.list = list;
+        Collections.reverse(listOfTransactions);
+        this.listOfTransactions = listOfTransactions;
     }
 
 
@@ -47,11 +47,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //assiging value to each of our rows as they come back on the screen
         // based on the position of our recycler view
-        holder.title.setText(list.get(position).getTransactionPaidTo());
-        holder.amount.setText(String.valueOf((list.get(position).getTransactionAmount())));
-        holder.date.setText(list.get(position).getTransactionDate());
-        holder.category.setText(list.get(position).getTransactionCategory());
-        holder.propertyAddress.setText(list.get(position).getProperty());
+        holder.title.setText(listOfTransactions.get(position).getTransactionPaidTo());
+        holder.amount.setText(String.valueOf((listOfTransactions.get(position).getTransactionAmount())));
+        holder.date.setText(listOfTransactions.get(position).getTransactionDate());
+        holder.category.setText(listOfTransactions.get(position).getTransactionCategory());
+        holder.propertyAddress.setText(listOfTransactions.get(position).getProperty());
         // for image holder.imageView.setImageResource(list.get(position).getImage());
         holder.itemView.setSelected(itemSelected == position);
 
@@ -60,7 +60,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public int getItemCount() {
         //total items in total
-        return list.size();
+        return listOfTransactions.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -97,7 +97,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public void setUpNewActivity() {
         Intent intent = new Intent(this.context, TransactionActivity.class);
-        Transactions clickedItem = list.get(itemSelected);
+        Transactions clickedItem = listOfTransactions.get(itemSelected);
 
         intent.putExtra("transaction", clickedItem);
         intent.putExtra("editing", true);
