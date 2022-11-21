@@ -1,11 +1,11 @@
-package com.example.rentalmanager.ui.login;
+package com.example.rentalmanager.viewmodel.login;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.example.rentalmanager.data.LoginDataSource;
-import com.example.rentalmanager.data.LoginRepository;
+import com.example.rentalmanager.db.loginData.LoginDataSource;
+import com.example.rentalmanager.db.loginData.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

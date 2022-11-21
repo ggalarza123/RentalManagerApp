@@ -1,4 +1,4 @@
-package  com.example.rentalmanager.ui.login;
+package com.example.rentalmanager.viewmodel.login;
 
 /**
  * Class exposing authenticated user details to the UI.

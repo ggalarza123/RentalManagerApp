@@ -67,7 +67,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".viewmodel.login.LoginActivity"
 
             android:exported="true" >
             <intent-filter>

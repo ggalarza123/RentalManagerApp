@@ -1,4 +1,4 @@
-package com.example.rentalmanager.data;
+package com.example.rentalmanager.db.loginData;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

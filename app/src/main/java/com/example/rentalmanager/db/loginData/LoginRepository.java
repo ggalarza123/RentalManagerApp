@@ -1,6 +1,6 @@
-package com.example.rentalmanager.data;
+package com.example.rentalmanager.db.loginData;
 
-import com.example.rentalmanager.data.model.LoggedInUser;
+import com.example.rentalmanager.db.loginData.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

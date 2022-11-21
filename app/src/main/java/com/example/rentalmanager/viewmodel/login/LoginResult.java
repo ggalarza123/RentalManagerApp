@@ -1,4 +1,4 @@
-package  com.example.rentalmanager.ui.login;
+package com.example.rentalmanager.viewmodel.login;
 
 import androidx.annotation.Nullable;
 

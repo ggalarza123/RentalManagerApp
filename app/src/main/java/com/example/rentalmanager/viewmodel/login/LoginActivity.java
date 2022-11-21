@@ -1,4 +1,4 @@
-package  com.example.rentalmanager.ui.login;
+package com.example.rentalmanager.viewmodel.login;
 
 import android.app.Activity;
 import androidx.lifecycle.Observer;
@@ -21,8 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rentalmanager.R;
-import com.example.rentalmanager.ui.login.LoginViewModel;
-import com.example.rentalmanager.ui.login.LoginViewModelFactory;
 import com.example.rentalmanager.databinding.ActivityLoginBinding;
 import com.example.rentalmanager.viewmodel.MainActivity;
 

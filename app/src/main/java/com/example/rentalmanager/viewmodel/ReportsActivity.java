@@ -3,7 +3,6 @@ package com.example.rentalmanager.viewmodel;
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +13,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.rentalmanager.db.ManageData;
 import com.example.rentalmanager.R;
-import com.example.rentalmanager.db.AppDatabase;
-import com.example.rentalmanager.db.Property;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReportsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -60,19 +57,10 @@ public class ReportsActivity extends AppCompatActivity implements AdapterView.On
 
 
     private void spinnerCreate() {
-        ArrayList<String> testing = new ArrayList<>();
-        testing.add("All Properties");
-        // code here to add properties to testing array before they get shown
-
-        AppDatabase db = AppDatabase.getDatabase(this);
-        List<Property> temp = db.getPropertyDao().getAllProperty();
-
-        for (Property list : temp) {
-            testing.add(list.address);
-        }
+        ArrayList<String> propertyList = ManageData.getPropertyList(this);
 
         Spinner spinner = findViewById(R.id.spinner_all_properties);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, testing);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, propertyList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);

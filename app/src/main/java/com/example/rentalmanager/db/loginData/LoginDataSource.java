@@ -1,6 +1,6 @@
-package com.example.rentalmanager.data;
+package com.example.rentalmanager.db.loginData;
 
-import com.example.rentalmanager.data.model.LoggedInUser;
+import com.example.rentalmanager.db.loginData.model.LoggedInUser;
 
 import java.io.IOException;
 

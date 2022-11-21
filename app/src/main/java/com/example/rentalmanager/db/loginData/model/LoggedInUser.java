@@ -1,4 +1,4 @@
-package com.example.rentalmanager.data.model;
+package com.example.rentalmanager.db.loginData.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
