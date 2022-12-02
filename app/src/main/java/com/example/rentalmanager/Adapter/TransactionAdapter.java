@@ -33,9 +33,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     @Override
     public TransactionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //inflating the layout and giving the look to each of our rows
-//        return new ViewHolder(
-//                LayoutInflater.from(context).inflate(R.layout.activity2_main, parent, false));
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.activity_main_recyclerview, parent, false);

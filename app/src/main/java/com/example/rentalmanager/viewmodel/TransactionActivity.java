@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -63,7 +64,11 @@ public class TransactionActivity extends AppCompatActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();
+                if (TextUtils.isEmpty(enterAmount.getText())) {
+                    Toast.makeText(getApplicationContext(), "Amount is required.", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveData();
+                }
             }
         });
         propertySpinner = findViewById(R.id.spinner);
@@ -168,6 +173,9 @@ public class TransactionActivity extends AppCompatActivity {
                     }
                 }
                 if (Transactions.tempAddress.equals("")) {
+                    index = -1;
+                }
+                if (Transactions.tempAddress.equals("All Properties")) {
                     index = -1;
                 }
 
@@ -359,6 +367,7 @@ public class TransactionActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
     }
+
     private void spinnerCreate() {
         ArrayList<String> spinnerList = ManageData.getPropertyList(this);
         Spinner spinner = findViewById(R.id.spinner);
