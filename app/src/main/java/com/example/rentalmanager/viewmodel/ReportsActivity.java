@@ -58,7 +58,6 @@ public class ReportsActivity extends AppCompatActivity implements AdapterView.On
 
     private void spinnerCreate() {
         ArrayList<String> propertyList = ManageData.getPropertyList(this);
-
         Spinner spinner = findViewById(R.id.spinner_all_properties);
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, propertyList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

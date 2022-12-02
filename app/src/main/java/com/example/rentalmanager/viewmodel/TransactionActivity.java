@@ -167,7 +167,13 @@ public class TransactionActivity extends AppCompatActivity {
                         index = temp.indexOf(list);
                     }
                 }
+                if (Transactions.tempAddress.equals("")) {
+                    index = -1;
+                }
+
                 propertySpinner.setSelection(index + 1);
+            } else {
+                propertySpinner.setSelection(0);
             }
             clearTemps();
         }
